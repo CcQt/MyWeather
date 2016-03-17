@@ -6,6 +6,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.coolweather.app.R;
+import com.coolweather.app.adapter.MyAdapter;
 import com.coolweather.app.db.CoolWeatherDB;
 import com.coolweather.app.model.City;
 import com.coolweather.app.model.County;
@@ -49,7 +51,8 @@ public class ChooseAreaActivity extends Activity implements OnClickListener {
 	private City selectedCity;
 	private int currentLevel;
 	private ProgressDialog progressDialog;
-	
+	private Context context;
+	private MyAdapter myAdapter;
 	private boolean isFromWeatherActivity;
 
 	protected void onCreate(Bundle savedInstanceState){
@@ -63,6 +66,7 @@ public class ChooseAreaActivity extends Activity implements OnClickListener {
 		}
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.choose_area);
+		context = this;
 		InitView();		
 	}
 
@@ -70,9 +74,11 @@ public class ChooseAreaActivity extends Activity implements OnClickListener {
 		// TODO 自动生成的方法存根
 		listView = (ListView)findViewById(R.id.list_view);
 		titleText = (TextView)findViewById(R.id.title_text);
-		
-		adapter = new ArrayAdapter<String>(getApplication(), android.R.layout.simple_expandable_list_item_1,dataList);
-		listView.setAdapter(adapter);
+		if(dataList.size()>0){
+	//		adapter = new ArrayAdapter<String>(getApplication(), android.R.layout.simple_list_item_1,dataList);
+			myAdapter = new MyAdapter(context,dataList);
+			listView.setAdapter(myAdapter);
+		}
 		coolWeatherDB = CoolWeatherDB.getInstance(getApplication());
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -105,7 +111,11 @@ public class ChooseAreaActivity extends Activity implements OnClickListener {
 			for(Province province:provinceList){
 				dataList.add(province.getProvinceName());
 			}
-			adapter.notifyDataSetChanged();
+//			adapter.notifyDataSetChanged();
+			if(dataList.size()>0){
+				myAdapter = new MyAdapter(context,dataList);
+				listView.setAdapter(myAdapter);
+			}
 			listView.setSelection(0);
 			titleText.setText("中国");
 			currentLevel = LEVEL_PROVINCE;
@@ -124,7 +134,11 @@ public class ChooseAreaActivity extends Activity implements OnClickListener {
 			for(City city:cityList){
 				dataList.add(city.getCityName());
 			}
-			adapter.notifyDataSetChanged();
+//			adapter.notifyDataSetChanged();
+			if(dataList.size()>0){
+				myAdapter = new MyAdapter(context,dataList);
+				listView.setAdapter(myAdapter);
+			}
 			listView.setSelection(0);
 			titleText.setText(selectedProvince.getProvinceName());
 			currentLevel = LEVEL_CITY;
@@ -141,7 +155,11 @@ public class ChooseAreaActivity extends Activity implements OnClickListener {
 			for(County county:countyList){
 				dataList.add(county.getCountyName());
 			}
-			adapter.notifyDataSetChanged();
+//			adapter.notifyDataSetChanged();
+			if(dataList.size()>0){
+				myAdapter = new MyAdapter(context,dataList);
+				listView.setAdapter(myAdapter);
+			}
 			listView.setSelection(0);
 			titleText.setText(selectedCity.getCityName());
 			currentLevel = LEVEL_COUNTY;

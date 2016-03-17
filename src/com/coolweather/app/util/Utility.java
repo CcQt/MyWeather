@@ -27,7 +27,7 @@ public class Utility {
 			String[] allProvinces = response.split("[,]");
 			if(allProvinces!=null&&allProvinces.length>0){
 				for(String p : allProvinces){
-					String[] array = p.split("[\\|]");
+					String[] array = p.split("\\|");
 					Province province = new Province();
 					province.setProvinceCode(array[0]);
 					province.setProvinceName(array[1]);
@@ -47,7 +47,7 @@ public class Utility {
 			String[] allcities = response.split("[,]");
 			if(allcities!=null&&allcities.length>0){
 				for(String p : allcities){
-					String[] array = p.split("[\\|]");
+					String[] array = p.split("\\|");
 					City city = new City();
 					city.setCityCode(array[0]);
 					city.setCityName(array[1]);
@@ -68,7 +68,7 @@ public class Utility {
 			String[] allcounties = response.split("[,]");
 			if(allcounties!=null&&allcounties.length>0){
 				for(String p : allcounties){
-					String[] array = p.split("[\\|]");
+					String[] array = p.split("\\|");
 					County county = new County();
 					county.setCountyCode(array[0]);
 					county.setCountyName(array[1]);

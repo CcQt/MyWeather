@@ -52,7 +52,7 @@ public class CoolWeatherDB {
 			ContentValues value = new ContentValues();
 			value.put("province_name",province.getProvinceName());
 			value.put("province_code", province.getProvinceCode());
-			value.put("id", province.getId());
+//			value.put("id", province.getId());
 			db.insert("Province", null, value);
 		}
 	}
@@ -84,7 +84,7 @@ public class CoolWeatherDB {
 	public void saveCity(City city){
 		if(city!=null){
 			ContentValues value = new ContentValues();
-			value.put("id", city.getId());
+//			value.put("id", city.getId());
 			value.put("city_name", city.getCityName());
 			value.put("city_code", city.getCityCode());
 			value.put("province_id", city.getProvinceId());
